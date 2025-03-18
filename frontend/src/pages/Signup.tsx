@@ -58,7 +58,7 @@ export function SignUp() {
         password: formData.password,
       };
       const response = await axios.post(
-        "http://localhost:3000/api/v1/auth/signup",
+        "https://storyscribe.onrender.com/api/v1/auth/signup",
         data
       );
       if (response.data.msg === "User with this Email already exists") {

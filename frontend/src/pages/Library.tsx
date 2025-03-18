@@ -31,7 +31,7 @@ function Library() {
       const id = localStorage.getItem("userId");
       console.log(id);
       const response = await axios.get(
-        `http://localhost:3000/api/v1/book/getbooks/${id}`
+        `https://storyscribe.onrender.com/api/v1/book/getbooks/${id}`
       );
       if (response.data.msg === "Internal server error") {
         toast.error("Some error occurred");

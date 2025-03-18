@@ -32,7 +32,7 @@ function Book() {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:3000/api/v1/book/getbook/${id}`
+        `https://storyscribe.onrender.com/api/v1/book/getbook/${id}`
       );
       setBook(response.data.book);
       setLoading(false);

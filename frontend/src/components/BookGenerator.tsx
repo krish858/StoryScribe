@@ -27,7 +27,7 @@ export function BookGenerator() {
       };
       console.log(data);
       const response = await axios.post(
-        "http://localhost:3000/api/v1/book/create",
+        "https://storyscribe.onrender.com/api/v1/book/create",
         data
       );
       console.log(response.data);

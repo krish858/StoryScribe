@@ -37,7 +37,7 @@ export function SignIn() {
       await signInSchema.validate(formData, { abortEarly: false });
       const data = { email: formData.email, password: formData.password };
       const response = await axios.post(
-        "http://localhost:3000/api/v1/auth/login",
+        "https://storyscribe.onrender.com/api/v1/auth/login",
         data
       );
       if (response.data.msg === "Logged in") {
