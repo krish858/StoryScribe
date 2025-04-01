@@ -1,7 +1,30 @@
 import { BookGenerator } from "../components/BookGenerator";
 import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios";
 
 function Home() {
+  const navigate = useNavigate();
+  async function verify() {
+    if (localStorage.getItem("token")) {
+      const res = await axios.get("", {
+        headers: { token: localStorage.getItem("token") },
+      });
+      if (res.data.msg === "sucess") {
+        localStorage.setItem("id", res.data.id);
+        localStorage.setItem("username", res.data.username);
+      } else {
+        if (res.data.error) {
+          console.log(res.data.error);
+          navigate("/");
+        }
+      }
+    }
+  }
+  useEffect(() => {
+    verify();
+  }, []);
   return (
     <main className="min-h-screen w-screen bg-gray-900 text-gray-100">
       <Navbar />

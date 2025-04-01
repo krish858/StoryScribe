@@ -1,8 +1,31 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Feather, BookOpen, Users } from "lucide-react";
+import { useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export function Landing() {
+  const navigate = useNavigate();
+  async function verify() {
+    if (localStorage.getItem("token")) {
+      const res = await axios.get("", {
+        headers: { token: localStorage.getItem("token") },
+      });
+      if (res.data.msg === "sucess") {
+        localStorage.setItem("id", res.data.id);
+        localStorage.setItem("username", res.data.username);
+        navigate("/home");
+      } else {
+        if (res.data.error) {
+          console.log(res.data.error);
+        }
+      }
+    }
+  }
+  useEffect(() => {
+    verify();
+  }, []);
   const features = [
     {
       icon: <Feather className="w-6 h-6" />,

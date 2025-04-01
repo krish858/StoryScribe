@@ -42,8 +42,25 @@ function Book() {
       setLoading(false);
     }
   }
+  async function verify() {
+    if (localStorage.getItem("token")) {
+      const res = await axios.get("", {
+        headers: { token: localStorage.getItem("token") },
+      });
+      if (res.data.msg === "sucess") {
+        localStorage.setItem("id", res.data.id);
+        localStorage.setItem("username", res.data.username);
+      } else {
+        if (res.data.error) {
+          console.log(res.data.error);
+          navigate("/");
+        }
+      }
+    }
+  }
 
   useEffect(() => {
+    verify();
     getBook();
   }, [id]);
 

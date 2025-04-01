@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Feather, ArrowLeft } from "lucide-react";
@@ -38,6 +38,25 @@ const signUpSchema = yup.object().shape({
 
 export function SignUp() {
   const navigate = useNavigate();
+  async function verify() {
+    if (localStorage.getItem("token")) {
+      const res = await axios.get("", {
+        headers: { token: localStorage.getItem("token") },
+      });
+      if (res.data.msg === "sucess") {
+        localStorage.setItem("id", res.data.id);
+        localStorage.setItem("username", res.data.username);
+        navigate("/home");
+      } else {
+        if (res.data.error) {
+          console.log(res.data.error);
+        }
+      }
+    }
+  }
+  useEffect(() => {
+    verify();
+  }, []);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
