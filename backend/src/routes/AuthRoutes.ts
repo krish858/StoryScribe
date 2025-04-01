@@ -8,6 +8,6 @@ router.post("/login", login);
 //@ts-ignore
 router.post("/signup", signup);
 //@ts-ignore
-router.post("/verify", verify);
+router.get("/verify", verify);
 
 export default router;
