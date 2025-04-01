@@ -8,10 +8,12 @@ import { Toaster } from "react-hot-toast";
 //import PDFGenerator from "./pages/Train";
 import NotFound from "./pages/NotFound";
 import Book from "./pages/Book";
+import SlowBackendReminder from "./components/SlowBackendReminder";
 
 function App() {
   return (
     <>
+      <SlowBackendReminder />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/signup" element={<SignUp />} />
