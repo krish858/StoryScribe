@@ -21,7 +21,10 @@ export const signup = async (req: Request, res: Response) => {
     });
     await newUser.save();
     const token = jwt.sign(
-      { id: newUser._id },
+      {
+        id: newUser._id,
+        username: newUser.username,
+      },
       process.env.JWT_SECRET as string
     );
     return res.json({
@@ -49,7 +52,10 @@ export const login = async (req: Request, res: Response) => {
         msg: "Wrong Password",
       });
     }
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string);
+    const token = jwt.sign(
+      { id: user._id, username: user.username },
+      process.env.JWT_SECRET as string
+    );
     return res.json({
       msg: "Logged in",
       token,
@@ -59,5 +65,34 @@ export const login = async (req: Request, res: Response) => {
   } catch (error) {
     console.log(error);
     return res.json({ msg: "Something went wrong" });
+  }
+};
+
+export const verify = async (req: Request, res: Response) => {
+  const headers = req.headers;
+  try {
+    const verify = await jwt.verify(
+      headers.token as string,
+      process.env.JWT_SECRET as string
+    );
+    if (verify) {
+      const decoded = await jwt.decode(headers.token as string);
+      res.json({
+        msg: "sucess",
+        //@ts-ignore
+        id: decoded?.id,
+        //@ts-ignore
+        username: decoded?.username,
+      });
+    } else {
+      res.json({
+        msg: "failed",
+      });
+    }
+  } catch (error) {
+    res.json({
+      msg: "error",
+      error: error,
+    });
   }
 };

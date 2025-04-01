@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
 import dbconnect from "./utils/dbconnect";
 import AuthRouter from "./routes/AuthRoutes";
@@ -13,6 +13,10 @@ app.use(express.json());
 app.use(cors());
 app.use("/api/v1/auth", AuthRouter);
 app.use("/api/v1/book", BookRouter);
+
+app.get("/", (req: Request, res: Response) => {
+  res.send("running on port ####");
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

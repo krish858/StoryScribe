@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { signup, login } from "../controllers/AuthControllers";
+import { signup, login, verify } from "../controllers/AuthControllers";
 
 const router = Router();
 
@@ -7,5 +7,7 @@ const router = Router();
 router.post("/login", login);
 //@ts-ignore
 router.post("/signup", signup);
+//@ts-ignore
+router.post("/verify", verify);
 
 export default router;
